@@ -1,8 +1,8 @@
-#  GDGoC BE-Web 스터디
+#  GDGoC BE 스터디
 
-## **:loudspeaker: GDGoC BE-Web 스터디 GitHub 협업 방식 공지사항**
+## **:loudspeaker: GDGoC BE 스터디 GitHub 협업 방식 공지사항**
 
-_안녕하세요, GDGoC BE-Web 스터디 멤버 여러분! 이번 스터디에서는 GitHub를 사용해 주차별로 개념 정리와 과제 코드를 공유하고 리뷰할 예정입니다. 아래의 협업 방식을 참고하여 진행해 주세요._
+_안녕하세요, GDGoC BE 스터디 멤버 여러분! 이번 스터디에서는 GitHub를 사용해 주차별로 개념 정리와 과제 코드를 공유하고 리뷰할 예정입니다. 아래의 협업 방식을 참고하여 진행해 주세요._
 <br/>
 <br/> 
 
