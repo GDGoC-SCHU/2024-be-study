@@ -121,18 +121,48 @@ public class ArticleController {
      * 총 6개의 api 완성
      */
     // 1. requestParam 방식으로 author를 검색하여 article을 찾는 api (GetMapping)
-
+    @GetMapping("/article-params")
+    public ArticleResponseDto getArticleByParamAndAuthor(@RequestParam String author) {
+        ArticleResponseDto responses = articleService.getArticleByAuthor(author);
+        return responses;
+    }
 
 
     // 2. pathVariable 방식으로 author를 검색하여 article을 찾는 api (GetMapping)
-
+    @GetMapping("/articles/{author}")
+    public ArticleResponseDto getArticleByAuthor(@PathVariable String author) {
+        ArticleResponseDto response = articleService.getArticleByAuthor(author);
+        return response;
+    }
 
 
     // 3. 데이터베이스 내의 모든 게시글을 삭제하는 api (DeleteMapping)
+    @DeleteMapping("/articles/delete")
+    public void deleteAllArticles() {
+        articleService.deleteAllArticles();
+    }
 
 
 
     // 4. 데이터 전송 방식 3가지(pathVariable requestParam, requestBody), 로 데이터베이스 내의 특정 Id의 게시글을 삭제하는 api
     // 총 3개의 api
+
+    //pathVariable
+    @DeleteMapping("/articles/{id}")
+    public String deleteArticle(@PathVariable Long id){
+        String message = articleService.delete(id);
+        return message;
+    }
+
+    //requestParam
+    @DeleteMapping("/articles-param")
+    public String deleteArticleByparam(@RequestParam Long id) {
+        String message = articleService.delete(id);
+        return message;
+    }
+
+    //requestBody
+    //x...
+
 
 }

@@ -17,6 +17,8 @@ public class ArticleService {
 
     private ArticleRepository articleRepository;
 
+
+
     @Autowired
     public ArticleService(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
@@ -107,4 +109,22 @@ public class ArticleService {
 
         return articleResponseDto;
     }
+
+    public ArticleResponseDto getArticleByAuthor(String author) {
+        ArticleEntity articleEntity = articleRepository.findByAuthor(author).get();
+
+        ArticleResponseDto articleResponseDto = new ArticleResponseDto(
+                articleEntity.getId(),
+                articleEntity.getTitle(),
+                articleEntity.getContent(),
+                articleEntity.getAuthor(),
+                articleEntity.getCreatedAt()
+        );
+        return articleResponseDto;
+    }
+
+    public void deleteAllArticles() {
+        articleRepository.deleteAll();
+    }
+
 }
