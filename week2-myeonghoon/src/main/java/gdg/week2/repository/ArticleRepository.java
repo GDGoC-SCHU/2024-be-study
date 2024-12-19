@@ -7,4 +7,7 @@ import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<ArticleEntity, Long> {
     Optional<ArticleEntity> findByTitle(String title);
+    Optional<ArticleEntity> findByAuthor(String author);
+
+    void deleteAll();
 }

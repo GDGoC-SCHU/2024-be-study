@@ -107,4 +107,17 @@ public class ArticleService {
 
         return articleResponseDto;
     }
+
+    public ArticleResponseDto searchByAuthor(String author) {
+        ArticleEntity articleEntity = articleRepository.findByAuthor(author).get();
+
+        ArticleResponseDto articleResponseDto = new ArticleResponseDto(
+                articleEntity.getId(),
+                articleEntity.getTitle(),
+                articleEntity.getContent(),
+                articleEntity.getAuthor(),
+                articleEntity.getCreatedAt()
+        );
+        return articleResponseDto;
+    }
 }

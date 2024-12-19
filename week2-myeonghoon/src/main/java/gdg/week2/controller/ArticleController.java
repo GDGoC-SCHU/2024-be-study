@@ -4,6 +4,7 @@ import gdg.week2.dto.ArticleCreateDto;
 import gdg.week2.dto.ArticleRequestDto;
 import gdg.week2.dto.ArticleResponseDto;
 import gdg.week2.dto.ArticleUpdateDto;
+import gdg.week2.repository.ArticleRepository;
 import gdg.week2.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,10 +24,12 @@ public class ArticleController {
      * 이렇게 객체를 생성하지 않고 사용
      */
     private ArticleService articleService;
+    private final ArticleRepository articleRepository;
 
     @Autowired
-    public ArticleController(ArticleService articleService) {
+    public ArticleController(ArticleService articleService, ArticleRepository articleRepository) {
         this.articleService = articleService;
+        this.articleRepository = articleRepository;
     }
 
     @GetMapping("/example")
@@ -116,64 +119,37 @@ public class ArticleController {
 
 
     // 1. requestParam 방식으로 author를 검색하여 article을 찾는 api (GetMapping)
-    // @GetMapping은 HTTP GET 요청을 처리하는 메서드
-    // "/article-by-author-param" URL로 요청이 오면 이 메서드가 실행
-    // @RequestParam은 URL의 쿼리 파라미터에서 "author" 값을 가져
-    @GetMapping("/article-by-author-param")
-    public ArticleResponseDto getArticleByAuthorParam(@RequestParam String author) {
-        ArticleResponseDto response = articleService.getArticleByAuthor(author);
+    @GetMapping("/search")
+    public ArticleResponseDto searchArticleParam(@RequestParam String author) {
+        ArticleResponseDto response = articleService.searchByAuthor(author);
         return response;
     }
-
 
     // 2. pathVariable 방식으로 author를 검색하여 article을 찾는 api (GetMapping)
-    // "/article-by-author-path/{author}" 경로에서 {author} 값이 변수로 매핑
-    // @PathVariable은 URL 경로의 일부를 변수로 바인딩
-    @GetMapping("/article-by-author-path/{author}")
-    public ArticleResponseDto getArticleByAuthorPath(@PathVariable String author) {
-        ArticleResponseDto response = articleService.getArticleByAuthor(author);
+    @GetMapping("/search/{author}")
+    public ArticleResponseDto searchArticlePath(@PathVariable String author) {
+        ArticleResponseDto response = articleService.searchByAuthor(author);
         return response;
     }
 
-
-
     // 3. 데이터베이스 내의 모든 게시글을 삭제하는 api (DeleteMapping)
-    // @DeleteMapping은 HTTP DELETE 요청을 처리하는 메서드
-    @DeleteMapping("/articles")
-    public ResponseEntity<String> deleteAllArticles() {
-        // 데이터베이스의 모든 게시글을 삭제하는 서비스 메서드 호출
-        articleService.deleteAllArticles();
-        // 상태 코드를 204 (No Content)로 설정하고 메시지를 반환
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("All articles have been deleted.");
+    @DeleteMapping("/deleteAll")
+    public void delteAll(){
+        articleRepository.deleteAll();
     }
-
 
     // 4. 데이터 전송 방식 3가지(pathVariable requestParam, requestBody), 로 데이터베이스 내의 특정 Id의 게시글을 삭제하는 api
     // 총 3개의 api
-
-    // 4-1. pathVariable 방식으로 특정 Id의 게시글을 삭제하는 api
-    @DeleteMapping("/article-by-id-path/{id}")
-    public ResponseEntity<String> deleteArticleByIdPath(@PathVariable Long id) {
-        // ID를 기반으로 게시글을 삭제
+    @DeleteMapping("/article/{id}")
+    public void deleteArticlePath(@PathVariable Long id) {
         articleService.delete(id);
-        // 성공 메시지를 반환하며 HTTP 상태 코드는 204로 설정
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Article with ID " + id + " has been deleted.");
     }
-
-    // 4-2. requestParam 방식으로 특정 Id의 게시글을 삭제하는 api
-    @DeleteMapping("/article-by-id-param")
-    public ResponseEntity<String> deleteArticleByIdParam(@RequestParam Long id) {
-        // 쿼리 파라미터에서 ID를 가져와 삭제
+    @DeleteMapping("/article/id")
+    public void deleteArticleParam(@RequestParam Long id) {
         articleService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Article with ID " + id + " has been deleted.");
     }
-
-    // 4-3. requestBody 방식으로 특정 Id의 게시글을 삭제하는 api
-    // @RequestBody는 HTTP 요청 본문에서 데이터를 가져와 매핑
-    @DeleteMapping("/article-by-id-body")
-    public ResponseEntity<String> deleteArticleByIdBody(@RequestBody ArticleRequestDto requestDto) {
-        // 요청 본문에서 가져온 ID를 기반으로 게시글을 삭제
-        articleService.delete(requestDto.getId());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Article with ID " + requestDto.getId() + " has been deleted.");
+    @DeleteMapping("/article")
+    public void deleteArticle(@RequestBody ArticleResponseDto request) {
+        articleService.delete(request.getId());
     }
 }
