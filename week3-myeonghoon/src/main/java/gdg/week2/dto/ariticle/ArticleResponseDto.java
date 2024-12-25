@@ -1,15 +1,20 @@
-package gdg.week2.dto;
+package gdg.week2.dto.ariticle;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class ArticleCreateDto {
+import java.time.LocalDateTime;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class ArticleResponseDto {
+
+    private Long id;
     private String title;
     private String content;
     private String author;
+    private LocalDateTime createdAt;
+
 }

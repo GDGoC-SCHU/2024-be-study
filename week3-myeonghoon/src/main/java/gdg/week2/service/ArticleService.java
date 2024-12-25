@@ -1,8 +1,8 @@
 package gdg.week2.service;
 
-import gdg.week2.dto.ArticleCreateDto;
-import gdg.week2.dto.ArticleResponseDto;
-import gdg.week2.dto.ArticleUpdateDto;
+import gdg.week2.dto.ariticle.ArticleCreateDto;
+import gdg.week2.dto.ariticle.ArticleResponseDto;
+import gdg.week2.dto.ariticle.ArticleUpdateDto;
 import gdg.week2.domain.ArticleEntity;
 import gdg.week2.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;

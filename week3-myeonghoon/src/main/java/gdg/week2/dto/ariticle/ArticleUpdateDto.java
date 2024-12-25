@@ -1,4 +1,4 @@
-package gdg.week2.dto;
+package gdg.week2.dto.ariticle;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
