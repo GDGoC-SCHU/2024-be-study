@@ -1,0 +1,19 @@
+spring:
+  datasource: # 본인의 DBMS 정보 적으면 돼요
+    url: jdbc:mysql://localhost:3306/gdg_study
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # create, update, validate, none 중 선택 (개발할 땐 update 사용하는게 젤 편해요 -탁)
+      show-sql: true    # SQL 로그 출력
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true  # SQL 로그 보기 좋게 포맷
+
+logging:
+  level:
+    org.hibernate.SQL: debug  # Hibernate SQL 실행 시 로그 출력
